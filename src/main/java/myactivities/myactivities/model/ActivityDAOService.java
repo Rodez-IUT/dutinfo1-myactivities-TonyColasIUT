@@ -32,6 +32,12 @@ public interface ActivityDAOService {
     @Options(statementType = StatementType.CALLABLE)
     public void findAllActivitiesWithProcedureCall(Map<String,List<Activity>> parameters);
 
+    @Select(value = "select act.id as id, title, description, creation_date, modification_date, owner_id, username "+
+    		"from activity act " +
+            "left join \"user\" owner " +
+            "on act.owner_id = owner.id " + 
+            "order by title, username")
+    @ResultMap("activity")
 	public List<Activity> findAllActivities();
     
 }
